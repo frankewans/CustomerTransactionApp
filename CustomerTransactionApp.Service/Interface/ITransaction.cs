@@ -1,6 +1,5 @@
 ﻿
 using CustomerTransactionApp.Service.Models.DTO;
-using System.Dynamic;
 
 namespace CustomerTransactionApp.Service.Interface
 {

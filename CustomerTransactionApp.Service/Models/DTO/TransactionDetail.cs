@@ -10,6 +10,7 @@
         public double? ClosingBalance { get; set; }
         public double? TotalCredit { get; set; }
         public double? TotalDebit { get; set; }
+        public string? Message { get; set; }
         public List<TransactionItem>? Transactions { get; set; }
     }
 }

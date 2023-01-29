@@ -1,0 +1,8 @@
+version: '3.4'
+
+services:
+  customertransaction:
+    image: ${DOCKER_REGISTRY-}customertransaction
+    build:
+      context: .
+      dockerfile: CustomerTransaction\Dockerfile

@@ -20,7 +20,7 @@ namespace CustomerTransaction.Controllers
         public IActionResult Details(string id , DateTime? search)
         {
 
-            ViewBag.Search = search?.ToString("MM/dd/yyyy");
+            ViewBag.Search = search?.ToString("yyyy-MM-dd");
 
             return View(_transactionService.GetTransactions(id,search));
         }

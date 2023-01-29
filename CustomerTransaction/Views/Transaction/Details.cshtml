@@ -3,7 +3,7 @@
 
 @{
     ViewData["Title"] = "Details";
-    int count = 1;
+    int count = 1;    
 }
 
 <h1>Transaction Details</h1>
@@ -12,9 +12,9 @@
     <hr />
     <form asp-action="Details" method="POST">
         <div class="form-inline pull-right">
-            <label class="my-1 mr-2">Select Date</label>
-            <input class="" type="date" id="search" value="@ViewBag.Search" name="search" />
-            <button type="submit" class="btn btn-primary my-1">Search</button>
+            <label class="my-1 mr-2">Select Date and click submit to view end-of-day balances and transaction details</label>
+            <input required class="" type="date" id="search" value="@ViewBag.Search" name="search" />
+            <button type="submit" class="btn btn-primary my-1">Submit</button>
         </div>
     </form>
 </div>
@@ -24,14 +24,15 @@
         <div>
             <a asp-action="Index">Back to List</a>
         </div>
-        <div class="row">
+        <div><b>@Model?.Message</b></div>
+        <div class="row" style="padding-top:20px">
             <div class="form-group col-md-6">
                 <label>Customer</label>
                 <label class="form-control">@Model?.AccountHolderNames</label>
             </div>
             <div class="form-group col-md-6">
                 <label>Account No</label>
-                <label class="form-control">@Model.AccountNumber</label>
+                <label class="form-control">@Model?.AccountNumber</label>
             </div>
         </div>
         <div class="row">
@@ -95,9 +96,9 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach (var item in Model.Transactions)
+                    @foreach (var item in Model?.Transactions)
                     {
-                     
+                        var creditDebitIndicatorCss = item.CreditDebitIndicator == CreditDebitIndicator.Credit ? "success" : "danger";
                         <tr>
                             <td>
                                 @count
@@ -111,9 +112,7 @@
                             <td>
                                 @decimal.Parse(item.Amount.ToString()).ToCurrency()
                             </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.CreditDebitIndicator)
-                            </td>
+                            <td><span class="text-@creditDebitIndicatorCss">@item.CreditDebitIndicator</span></td>
                             <td>
                                 @Html.DisplayFor(modelItem => item.Status)
                             </td>

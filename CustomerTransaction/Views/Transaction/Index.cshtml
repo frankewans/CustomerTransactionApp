@@ -1,4 +1,5 @@
-﻿@model IEnumerable<CustomerTransactionApp.Service.Models.DTO.Customer>
+﻿@using CustomerTransactionApp.Service.Helpers
+@model IEnumerable<CustomerTransactionApp.Service.Models.DTO.Customer>
 
 @{
     ViewData["Title"] = "Index";
@@ -65,10 +66,10 @@
                     @Html.DisplayFor(modelItem => item.BankCode)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.CurrentBalance)
+                        @decimal.Parse(item.CurrentBalance.ToString()).ToCurrency()
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.AvailableBalance)
+                        @decimal.Parse(item.AvailableBalance.ToString()).ToCurrency()
                 </td>
                 <td>
                     <a asp-action="Details" asp-route-id="@item.AccountId">View Transactions</a>

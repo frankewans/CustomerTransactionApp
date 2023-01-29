@@ -2,15 +2,18 @@
 using CustomerTransactionApp.Service.Interface;
 using CustomerTransactionApp.Service.Models;
 using CustomerTransactionApp.Service.Models.DTO;
+using Microsoft.Extensions.Configuration;
 using Newtonsoft.Json;
-using System.Reflection;
-using System.Security.Cryptography.X509Certificates;
-using System.Transactions;
-
 namespace CustomerTransactionApp.Service.Service
 {
     public class TransactionService : ITransaction
     {
+        private readonly IConfiguration _configuration;
+
+        public TransactionService(IConfiguration configuration)
+        {
+            _configuration = configuration;
+        }
         public List<Customer> GetCustomers()
         {
             var transactions = LoadJson();
@@ -41,7 +44,7 @@ namespace CustomerTransactionApp.Service.Service
 
         public TransactionDetail GetTransactions(string id, DateTime? search)
         {
-            //Closing balance = Opening balance + Total Receipts (Credit) - Total Payments (Debit)
+            //Closing balance = (Opening balance + Total Receipts (Credit)) - Total Payments (Debit)
             var transactions = LoadJson();
             var model = new TransactionDetail { Transactions = new List<TransactionItem>() };
             FilteredTransaction(id, search, transactions, model);
@@ -65,7 +68,7 @@ namespace CustomerTransactionApp.Service.Service
                     model.AccountId = transactions?.Accounts?.FirstOrDefault(x => x.AccountId == id)?.AccountId;
                     model.AccountNumber = transactions?.Accounts?.FirstOrDefault(x => x.AccountId == id)?.Identifiers?.AccountNumber;
                     model.CurrencyCode = transactions?.Accounts?.FirstOrDefault(x => x.AccountId == id)?.CurrencyCode;
-
+                    model.Message = $"Transactions between {filteredTransactions?.OrderBy(x => x.BookingDate).FirstOrDefault().BookingDate.ToString("dd-MMM-yyyy")} AND {DateTime.Parse(search.ToString()):dd-MMM-yyyy}. Total transaction count is {filteredTransactions?.Count}";
                     foreach (var transaction in filteredTransactions.OrderBy(x => x.BookingDate))
                     {
                         model.Transactions.Add(new TransactionItem
@@ -83,10 +86,10 @@ namespace CustomerTransactionApp.Service.Service
             }
         }
 
-        private static TransactionModel LoadJson()
+        private TransactionModel LoadJson()
         {
             TransactionModel model;
-            using (StreamReader r = new StreamReader("Data/apollo-carter.json"))
+            using (StreamReader r = new StreamReader(_configuration.GetSection("AppSettings:DataPath").Value))
             {
                 string json = r.ReadToEnd();
                 model = JsonConvert.DeserializeObject<TransactionModel>(json);

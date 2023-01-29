@@ -5,7 +5,9 @@ VisualStudioVersion = 17.3.32804.467
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CustomerTransaction", "CustomerTransaction\CustomerTransaction.csproj", "{524ED8A9-15CC-4143-8EFF-E5E2C59A176F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CustomerTransactionApp.Service", "CustomerTransactionApp.Service\CustomerTransactionApp.Service.csproj", "{7A9DEB66-504B-4BA1-A64D-193AEB149100}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CustomerTransactionApp.Service", "CustomerTransactionApp.Service\CustomerTransactionApp.Service.csproj", "{7A9DEB66-504B-4BA1-A64D-193AEB149100}"
+EndProject
+Project("{E53339B2-1760-4266-BCC7-CA923CBCF16C}") = "docker-compose", "docker-compose.dcproj", "{F9CE72FB-3E4F-4905-B276-9C312F6AD51C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,6 +23,10 @@ Global
 		{7A9DEB66-504B-4BA1-A64D-193AEB149100}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7A9DEB66-504B-4BA1-A64D-193AEB149100}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7A9DEB66-504B-4BA1-A64D-193AEB149100}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F9CE72FB-3E4F-4905-B276-9C312F6AD51C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F9CE72FB-3E4F-4905-B276-9C312F6AD51C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F9CE72FB-3E4F-4905-B276-9C312F6AD51C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F9CE72FB-3E4F-4905-B276-9C312F6AD51C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
