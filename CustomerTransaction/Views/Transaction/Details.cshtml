@@ -1,0 +1,133 @@
+﻿@using CustomerTransactionApp.Service.Helpers
+@model CustomerTransactionApp.Service.Models.DTO.TransactionDetail
+
+@{
+    ViewData["Title"] = "Details";
+    int count = 1;
+}
+
+<h1>Transaction Details</h1>
+
+<div>
+    <hr />
+    <form asp-action="Details" method="POST">
+        <div class="form-inline pull-right">
+            <label class="my-1 mr-2">Select Date</label>
+            <input class="" type="date" id="search" value="@ViewBag.Search" name="search" />
+            <button type="submit" class="btn btn-primary my-1">Search</button>
+        </div>
+    </form>
+</div>
+<div>
+    @if (Model?.Transactions?.Count() != 0)
+    {
+        <div>
+            <a asp-action="Index">Back to List</a>
+        </div>
+        <div class="row">
+            <div class="form-group col-md-6">
+                <label>Customer</label>
+                <label class="form-control">@Model?.AccountHolderNames</label>
+            </div>
+            <div class="form-group col-md-6">
+                <label>Account No</label>
+                <label class="form-control">@Model.AccountNumber</label>
+            </div>
+        </div>
+        <div class="row">
+            <div class="form-group col-md-6">
+                <label>Account Id</label>
+                <label class="form-control">@Model.AccountId</label>
+            </div>
+            <div class="form-group col-md-6">
+                <label>Currency</label>
+                <label class="form-control">@Model.CurrencyCode</label>
+            </div>
+        </div>
+
+
+        <div class="row">
+            <div class="form-group col-md-6">
+                <label>Opening Balance</label>
+                <label class="form-control">@decimal.Parse(Model?.OpeningBalance?.ToString()).ToCurrency()</label>
+            </div>
+            <div class="form-group col-md-6">
+                <label>Closing Balance</label>
+                <label class="form-control">@decimal.Parse(Model?.ClosingBalance?.ToString()).ToCurrency()</label>
+            </div>
+        </div>
+        <div class="row">
+            <div class="form-group col-md-6">
+                <label>Total Credit</label>
+                <label class="form-control">@decimal.Parse(Model?.TotalCredit?.ToString()).ToCurrency()</label>
+            </div>
+            <div class="form-group col-md-6">
+                <label>Total Debit</label>
+                <label class="form-control">@decimal.Parse(Model?.TotalDebit?.ToString()).ToCurrency()</label>
+            </div>
+        </div>
+
+        <div class="table-responsive" style="padding-top:30px">
+            <table  class="table order-column hover dataTables">
+                <thead>
+                    <tr>
+                        <th>
+                            S/N
+                        </th>
+                        <th>
+                            Transaction Id
+                        </th>
+                        <th>
+                            Description
+                        </th>
+                        <th>
+                            Amount
+                        </th>
+                        <th>
+                            Indicator
+                        </th>
+                        <th>
+                            Status
+                        </th>
+                        <th>
+                            BookingDate
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model.Transactions)
+                    {
+                     
+                        <tr>
+                            <td>
+                                @count
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.TransactionId)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Description)
+                            </td>
+                            <td>
+                                @decimal.Parse(item.Amount.ToString()).ToCurrency()
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.CreditDebitIndicator)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Status)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.BookingDate)
+                            </td>
+                        </tr>
+                        count++;
+                    }
+                </tbody>
+            </table>
+        </div>
+    }
+</div>
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>

@@ -1,0 +1,80 @@
+﻿@model IEnumerable<CustomerTransactionApp.Service.Models.DTO.Customer>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Customer List</h1>
+<div class="table-responsive">
+<table class="table order-column hover dataTables">
+    <thead>
+        <tr>
+            <th>
+                Full name
+            </th>
+            <th>
+                Account Id
+            </th>
+            <th>
+                Currency
+            </th>
+            <th>
+                Account Type
+            </th>
+            <th>
+                Sub Type
+            </th>
+            <th>
+                Account No
+            </th>
+            <th>
+                Bank Code
+            </th>
+            <th>
+                Current Balance
+            </th>
+            <th>
+                Available Balance
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.AccountHolderNames)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.AccountId)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CurrencyCode)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.AccountType)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.AccountSubType)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.AccountNumber)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.BankCode)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CurrentBalance)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.AvailableBalance)
+                </td>
+                <td>
+                    <a asp-action="Details" asp-route-id="@item.AccountId">View Transactions</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+</div>
